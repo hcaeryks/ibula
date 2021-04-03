@@ -1,0 +1,24 @@
+{
+  "name": "ibula",
+  "version": "1.0.0",
+  "description": "- Banco de dados de bula (mySQL)\r     - Busca de bula no banco de dados\r     - Dados das bulas no banco de dados\r     - Fazer sistema de busca dentro do banco de dados\r     - Mostrar o resultado da pesquisa\r     - Disponibilizar a bula para o usuário, para ler e para baixar na memória interna do celular\r     - Disponibilizar as informações mais importantes da bula\r     - Fazer o sistema de alarme para os remêdios do usuário",
+  "main": "main.js",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hcaeryks/ibula.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hcaeryks/ibula/issues"
+  },
+  "homepage": "https://github.com/hcaeryks/ibula#readme"
+}

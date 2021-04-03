@@ -1,3 +1,0 @@
-# Implementar a conexão com o mySQL para conseguir acessar as bulas ou quaisquer outras informações necessarias para se guardar
-
-# Implementar o sistema de busca das bulas para enviar ao usuário
