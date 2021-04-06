@@ -1,0 +1,9 @@
+.btn-outline-primary {
+	margin: 5px;
+	margin-bottom: 10px;
+	height: 70px;
+}
+
+#categorias {
+	transition: height 1s, width 1s, padding 1s, visibility 1s, opacity 0.5s ease-out;
+}
