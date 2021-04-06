@@ -22,6 +22,11 @@
 	position: static;
 }
 
+#remedio {
+	transition: opacity .25s linear;
+	position: static;
+}
+
 .escondido {
 	opacity: 0;
 	height: 0;
