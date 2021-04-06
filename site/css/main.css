@@ -5,5 +5,18 @@
 }
 
 #categorias {
-	transition: height 1s, width 1s, padding 1s, visibility 1s, opacity 0.5s ease-out;
+	transition: opacity .5s linear;
+	position: static;
+}
+
+#remedios {
+	transition: opacity .5s linear;
+	position: static;
+}
+
+.escondido {
+	opacity: 0;
+	height: 0;
+	pointer-events: none;
+	position: absolute;
 }
