@@ -11,10 +11,16 @@
 <body>
 	<br>
 	<div class="container">
-		<div class="form-floating mb-3">
-		  <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-		  <label for="floatingInput">Digite aqui o nome do remédio.</label>
+		<div id="logo" class="row">
+			<div class="col-3"></div>
+			<img src="media/logocortada.png" class="img-fluid col-6" alt="...">
+			<div class="col-3"></div>
 		</div>
+		<div class="form-floating mb-3">
+			<input type="email" class="form-control" id="floatingInput" placeholder=".">
+			<label for="floatingInput"><i class="fas fa-search"></i> Digite aqui o nome do remédio.</label>
+		</div>
+		<br>
 		<div id="categorias">
 			<h1 class="display-2 text-center"><i class="fas fa-capsules"></i> Categorias</h1>
 			<br>
@@ -61,6 +67,8 @@
 		</div>
 		<div id="remedios" class="escondido">
 			<h1 class="display-3 text-center"><i class="fas fa-capsules"></i><span id="tituloRemedios"></span></h1>
+			
+			<button type="button" class="btn btn-primary btn-sm" onclick="voltarInicio()"><i class="fas fa-sign-out-alt"></i> Voltar para o início</button>
 			<br>
 		</div>
 	</div>

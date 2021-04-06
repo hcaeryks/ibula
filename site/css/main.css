@@ -4,6 +4,10 @@
 	height: 70px;
 }
 
+#logo {
+	margin-bottom: 10px;
+}
+
 #categorias {
 	transition: opacity .5s linear;
 	position: static;

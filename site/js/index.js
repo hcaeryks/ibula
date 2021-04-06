@@ -1,5 +1,5 @@
 categoriasDiv = document.getElementById("categorias")
-botoesCategorias = document.getElementsByTagName("button")
+botoesCategorias = categoriasDiv.querySelectorAll("button")
 
 remediosDiv = document.getElementById("remedios")
 tituloPaginaRemedios = document.getElementById("tituloRemedios")
@@ -7,14 +7,24 @@ tituloPaginaRemedios = document.getElementById("tituloRemedios")
 window.onload = function() {
 	for(var i = 0; i < botoesCategorias.length; i++) {
 		botoesCategorias[i].onclick = function() {
-			mudarPagina(this);
+			mudarPaginaCategoria(this);
 		}
 	}
 }
 
-function mudarPagina(botao) {
+function mudarPaginaCategoria(botao) {
 	categoriasDiv.classList.add("escondido")
-
 	tituloPaginaRemedios.innerHTML = " Categoria: " + botao.innerHTML
-	remediosDiv.classList.remove("escondido")
+	setTimeout(() => {
+		remediosDiv.classList.remove("escondido")
+	}, 500)
 }
+
+function voltarInicio() {
+	remediosDiv.classList.add("escondido")
+	setTimeout(() => {
+		categoriasDiv.classList.remove("escondido")
+	}, 500)
+}
+
+const listasRemediosTemporaria = []
