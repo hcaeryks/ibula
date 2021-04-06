@@ -17,14 +17,14 @@ function mudarPaginaCategoria(botao) {
 	tituloPaginaRemedios.innerHTML = " Categoria: " + botao.innerHTML
 	setTimeout(() => {
 		remediosDiv.classList.remove("escondido")
-	}, 500)
+	}, 250)
 }
 
 function voltarInicio() {
 	remediosDiv.classList.add("escondido")
 	setTimeout(() => {
 		categoriasDiv.classList.remove("escondido")
-	}, 500)
+	}, 250)
 }
 
-const listasRemediosTemporaria = []
+autocomplete(document.getElementById("floatingInput"), remediosTemporario)
