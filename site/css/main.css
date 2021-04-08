@@ -9,12 +9,57 @@
 }
 
 #logo {
-	margin-bottom: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+#status {
+  margin-bottom: 3rem;
+}
+
+#status input {
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  );
+  border: none;
+  padding: 0.5rem;
+  border-radius: 2rem;
+  margin-top: 10px;
+}
+
+.container label {
+  color: #658ec6;
 }
 
 #categorias {
+  justify-content: space-between;
+  box-shadow: 6px 6px 20px rgba(122, 122, 122, 0.212);
+  background: white;
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  );
+  border-radius: 3rem;
+  font-family: "Poppins", sans-serif;
 	transition: opacity .25s linear;
 	position: static;
+  padding: 10px 0 10px 0;
+  margin-top: 27px
+}
+
+#categorias button {
+  padding: 30px 0 30px 0;
+  border-radius: 1rem;
+  color: #658ec6;
+}
+
+#categorias h1 {
+  padding-top: 10px;
+  font-weight: bold;
+  color: #426696;
 }
 
 #remedios {
@@ -48,7 +93,7 @@
 .autocomplete-items div {
   padding: 10px;
   cursor: pointer;
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
   border-bottom: 1px solid #d4d4d4;
 }
 .autocomplete-items div:hover {
@@ -59,4 +104,58 @@
   /*when navigating through the items using the arrow keys:*/
   background-color: DodgerBlue !important;
   color: #ffffff;
+}
+.caixa input {
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  );
+  border: none;
+  width: 50%;
+  padding: 0.5rem;
+  border-radius: 2rem; 
+
+}
+
+.btn {
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  );
+  border: none;
+  padding: 10px;
+  width: 200px
+  border-radius: 2rem;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 4px;
+  margin-right: 4px;
+  float: left;
+  /* estilos adicionais */
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(to right top, #a3eee0, #9adae4);
+}
+
+footer {
+  margin-top: 20px;
+  background: white;
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  );
+}
+
+footer p {
+  text-align:center;
+}
+
+#Rodape-titulo {
+  text-align: center;
+  color: #426696;
 }
