@@ -9,16 +9,29 @@ const database = mysql.createConnection({
   database: 'LUtMU4ebQM'
 });
 database.connect((err) => {
-  if (err) throw err;
+  if(err) throw err;
+  console.log("Conectado no Banco de Dados")
 });
 
-//Retorna uma lista com os remedios de determinada categoria
+function retorna_lista_nomes(lista) {
+  x = []
+  for(i = 0; i < lista.length; i++) {
+    x.push(lista[i].nome)
+  }
+  return x
+}
+
+//Retorna uma lista com o nome dos remedios de uma determinada categoria
 function busca_categoria(categoria) {
-  database.query("SELECT * FROM `categoria` WHERE nome = '" + categoria + "'", (err,rows) => {
+  database.query("SELECT id FROM `categoria` WHERE nome = '" + categoria + "'", (err,rows) => {
   if(err) throw err;
-  console.log('Data received from Db:');
-  console.log(rows);
-  id_categoria = rows.id
-  return database.query("SELECT * FROM `remedio` WHERE categoria = '" + id_categoria + "'")
+  database.query("SELECT nome FROM `remedio` WHERE categoria = '" + String(rows[0].id) + "'", (error, rows) => {
+    if(error) throw error;
+    var retorno = retorna_lista_nomes(rows)
+    return retorno
+  })
 });
 }
+
+var teste = busca_categoria("Controlados")
+console.log(teste)
