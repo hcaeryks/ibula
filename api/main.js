@@ -72,4 +72,13 @@ function BuscaRemedioNome(nome="*") {
 
 var categorias_filtro = []
 
-BuscaRemedioNome()
+//BuscaRemedioNome()
+
+function allNames() {
+  database.query("SELECT nome FROM remedio", (err, rows) => {
+    if(err) throw err;
+    console.log(JSON.stringify(rows, null, 5))
+  })
+}
+
+allNames()
