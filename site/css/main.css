@@ -54,6 +54,7 @@
   padding: 30px 0 30px 0;
   border-radius: 1rem;
   color: #658ec6;
+  margin-bottom: 8px;
 }
 
 #categorias h1 {
@@ -65,6 +66,10 @@
 #remedios {
 	transition: opacity .25s linear;
 	position: static;
+}
+
+#remedios h1 {
+  margin-bottom: 17px;
 }
 
 #remedio {
@@ -142,7 +147,7 @@ body {
 }
 
 footer {
-  margin-top: 20px;
+  margin-top: 10px;
   background: white;
   background: linear-gradient(
     to right bottom,
@@ -153,9 +158,46 @@ footer {
 
 footer p {
   text-align:center;
+  margin-bottom: 0px;
+  color: #426696;
+  padding-bottom: 5px
 }
 
 #Rodape-titulo {
   text-align: center;
   color: #426696;
+  padding-top: 10px;
+
+}
+
+.remedio-categoria {
+  display: block;
+  text-align: center;
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  );
+  ;
+  border-radius: 0.8rem;
+  padding: 5px 0 5px 0;
+  margin-bottom: 7px;
+  font-size: 25px;
+  color: #426696;
+}
+
+.botaoInicio {
+  display: block;
+  border: none;
+  text-align: center;
+  margin: 25px auto 0 auto;
+  border-radius: 0.5rem;
+  font-size: 20px;
+  background-color: white;
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 1)
+  );
+  padding: 15px 40px 15px 40px;
 }

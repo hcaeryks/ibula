@@ -31,38 +31,7 @@ function mudarPaginaCategoria(botao) {
 	tituloPaginaRemedios.innerHTML = " Categoria: " + botao.innerHTML
 
 	for(var i = 0; i < 100; i++) {
-		/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-						ta aqui a classe :D
-						|
-						|
-						|
-						|
-						|
-						|
-						|
-						|
-						|
-						|
-						|
-						|                                           aqui
-						c ------------------------------------vvvvvvvvvvvvvvvvv----------------
-		*/
-		conteudoPaginaRemedios.innerHTML += "<br><span class='remedio-categoria'>" + remediosTemporario[i] + "</span>"
+		conteudoPaginaRemedios.innerHTML += "<span class='remedio-categoria'>" + remediosTemporario[i] + "</span>"
 	}
 
 	setTimeout(() => {
