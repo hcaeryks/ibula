@@ -22,7 +22,6 @@ function AdicionarCategoriaFiltro(categoria) {
     database.query("SELECT id FROM `categoria` WHERE nome = '" + categoria + "'", (err, rows) => {
         if(err) throw err;
         categorias_filtro.push(rows[0].id)
-        console.log(categorias_filtro)
     })
 }
 
@@ -31,54 +30,51 @@ function RemoverCategoriaFiltro(categoria) {
   database.query("SELECT id FROM `categoria` WHERE nome = '" + categoria + "'", (err, rows) => {
       if(err) throw err;
       categorias_filtro.splice(categorias_filtro.indexOf(rows[0].id), 1)
-      console.log(categorias_filtro)
   })
 }
 
 function RetornaListaNomes(lista) {
-    x = []
-    for(i = 0; i < lista.length; i++) {
-        x.push(lista[i].nome)
+    resultados_busca.splice(0, resultados_busca.length)
+    for(let i = 0; i < lista.length; i++) {
+        resultados_busca.push(lista[i].nome)
     }
-    return x
-}
-//Retorna uma lista com o nome dos remedios de uma determinada categoria
-function BuscaRemedioCategoria() {
-    busca_categoria = ""
-    for(i = 0; i < categorias_filtro.length; i++) {
-      if(i == 0) {
-        busca_categoria += "WHERE categoria = "
-      }
-      if(i == categorias_filtro.length-1) {
-          busca_categoria += "'"+ String(categorias_filtro[i]) + "'"
-      }
-      else {
-          busca_categoria += String(categorias_filtro[i]) + "AND categoria = "
-      }
-    }
-    database.query("SELECT nome FROM `remedio` " + busca_categoria, async (error, rows) => {
-        if(error) throw error;
-        var retorno = RetornaListaNomes(rows)
-        console.log(retorno)
-        return retorno
-    })
-};
-
-function BuscaRemedioNome(nome="*") {
-    var lista = BuscaRemedioCategoria()
-    console.log(lista)
-    console.log("Busca nome")
+    return
 }
 
 var categorias_filtro = []
+var resultados_busca = []
 
-//BuscaRemedioNome()
+//Faz a busca dos remedios que contem as categorias do filtro e contem o filtro de busca por nome
+function ProcurarRemedio(busca="") {
+    busca_completa = ""
+    for(let i = 0; i < categorias_filtro.length; i++) {
+        if(i == 0) {
+            busca_completa += " WHERE (categoria = "
+        }
+        if(i == categorias_filtro.length-1) {
+            busca_completa += "'"+ String(categorias_filtro[i]) + "')"
+        }
+        else {
+            busca_completa += "'" + String(categorias_filtro[i]) + "'" + " OR categoria = "
+        }
+    }
+    if(busca != "") {
+        busca_completa += ""
+    }
 
-function allNames() {
-  database.query("SELECT nome FROM remedio", (err, rows) => {
-    if(err) throw err;
-    console.log(JSON.stringify(rows, null, 5))
-  })
+    if(busca_completa != "" && busca != "") {
+        busca_completa += " AND nome LIKE " + "'%" + busca + "%'"
+    }
+    else {
+        if(busca_completa == "" && busca != "") {
+            busca_completa += " WHERE nome LIKE '%" + busca + "%'"
+        }
+    }
+    console.log(busca_completa)
+    database.query("SELECT nome FROM remedio" + busca_completa, (err, rows) => {
+        if(err) throw err;
+        RetornaListaNomes(rows)
+        console.log(resultados_busca)
+    })
 }
 
-allNames()
