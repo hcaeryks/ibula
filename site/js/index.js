@@ -7,13 +7,14 @@ conteudoPaginaRemedios = document.getElementById("conteudoRemedios")
 
 remedioDiv = document.getElementById("remedio")
 tituloPaginaRemedio = document.getElementById("tituloRemedio")
+remedioConteudo = document.getElementById("remedioConteudo")
 
 campoPesquisa = document.getElementById("floatingInput")
 
 window.onload = function() {
 	for(var i = 0; i < botoesCategorias.length; i++) {
 		botoesCategorias[i].onclick = function() {
-			mudarPaginaCategoria(this)
+			getRemedios("botaopls", this);
 		}
 	}
 }
@@ -21,17 +22,18 @@ window.onload = function() {
 campoPesquisa.addEventListener("keyup", function(e) {
 	if(e.keyCode === 13) {
 		e.preventDefault()
-		carregarPesquisa(campoPesquisa.value)
+		getRemedios("carregaRemedio", campoPesquisa.value)
+		//carregarPesquisa(campoPesquisa.value)
 	}
 })
 
-function mudarPaginaCategoria(botao) {
+function mudarPaginaCategoria(botao, data) {
 	categoriasDiv.classList.add("escondido")
 	remedioDiv.classList.add("escondido")
 	tituloPaginaRemedios.innerHTML = " Categoria: " + botao.innerHTML
 
-	for(var i = 0; i < 100; i++) {
-		conteudoPaginaRemedios.innerHTML += "<span class='remedio-categoria'>" + remediosTemporario[i] + "</span>"
+	for(var i = 0; i < data.length; i++) {
+		conteudoPaginaRemedios.innerHTML += "<span class='remedio-categoria' onclick=\"getRemedios('carregaRemedio', '"+data[i]+"')\">" + data[i] + "</span>"
 	}
 
 	setTimeout(() => {
@@ -48,18 +50,19 @@ function voltarInicio() {
 	location.reload()
 }
 
-function carregarPesquisa(pesquisa) {
-	if(remediosTemporario.includes(pesquisa)) {
+function carregarPesquisa(pesquisa, dl) {
+	if(remediosFUNCIONA.includes(pesquisa)) {
 		remediosDiv.classList.add("escondido")
 		categoriasDiv.classList.add("escondido")
 		tituloPaginaRemedio.innerHTML = " " + pesquisa
 
 		setTimeout(() => {
 			remedioDiv.classList.remove("escondido")
+			remedioConteudo.innerHTML = "<a href="+dl+"><h1 class='display-3'><i class='fas fa-download'></i> Baixar bula!</h1</a>"
 		}, 250)
 	} else {
 		alert("em breve farei algo aqui :)")
 	}
 }
 
-autocomplete(campoPesquisa, remediosTemporario)
+getRemedios("auto")

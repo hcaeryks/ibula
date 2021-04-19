@@ -11,7 +11,7 @@ const cors = require('cors');
 const port = process.env.PORT || 8080;
 app.use(cors());
 //para acessar o banco de dados utilize a variavel "database"
-const database = mysql.createConnection({
+let database = mysql.createConnection({
     host: 'remotemysql.com',
     user: 'LUtMU4ebQM',
     password: 'rTbWkXuxr6',
@@ -21,6 +21,22 @@ database.connect((err) => {
     if(err) throw err;
     console.log("Conectado no Banco de Dados")
 });
+
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+
+    // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+      res.send(200);
+    }
+    else {
+      next();
+    }
+};
+
+app.use(allowCrossDomain);
 
 function handleDisconnect() {
     database.on('error', function(err){
@@ -47,6 +63,7 @@ function AdicionarCategoriaFiltro(categoria) {
     database.query("SELECT id FROM `categoria` WHERE nome = '" + categoria + "'", (err, rows) => {
         if(err) throw err;
         categorias_filtro.push(rows[0].id)
+        return "OK";
     })
 }
 
@@ -55,6 +72,7 @@ function RemoverCategoriaFiltro(categoria) {
   database.query("SELECT id FROM `categoria` WHERE nome = '" + categoria + "'", (err, rows) => {
       if(err) throw err;
       categorias_filtro.splice(categorias_filtro.indexOf(rows[0].id), 1)
+		return "OK";
   })
 }
 
@@ -100,28 +118,32 @@ function ProcurarRemedio(busca = "") {
     })
 }
 
-function Download(id_remedio) {
+app.get('/api/download', async function (req, res) {
+    let id_remedio = req.query.id;
     database.query("SELECT linkbula FROM remedio WHERE id = '" + id_remedio + "'", (err, rows) => {
         if(err) throw err;
-        link = rows[0].linkbula
-        console.log(link)
-        })    
-}
+        res.header("Content-Type", "application/json");
+        res.send(JSON.stringify(rows[0], null, 5));
+    })    
+})
 
 app.get('/api/todos', function (req, res) {
     ProcurarRemedio()
-    res.header("Content-Type", "application/json");
-    res.send(JSON.stringify(resultados_busca, null, 5));
+    console.log(categorias_filtro)
+    setTimeout(() => {
+		res.header("Content-Type", "application/json");
+		res.send(JSON.stringify(resultados_busca, null, 5));
+    }, 400)
 })
 
 app.get('/api/adicionar_categoria', function (req, res) {
     let categoria = req.query.categoria;
-    AdicionarCategoriaFiltro(categoria)
+    res.send(AdicionarCategoriaFiltro(categoria))
 })
 
 app.get('/api/remover_categoria', function (req, res) {
     let categoria = req.query.categoria;
-    RemoverCategoriaFiltro(categoria)
+    res.send(RemoverCategoriaFiltro(categoria))
     console.log(categorias_filtro)
 })
 
@@ -136,6 +158,3 @@ app.get('/api/filtro', async function (req, res) {
 app.listen(port, () => {
     console.log('Running on '+port+'.');
   });
-
-
-console.log(AdicionarCategoriaFiltro("Controlados"))
