@@ -109,6 +109,7 @@ function Download(id_remedio) {
 app.get('/api/todos', function (req, res) {
     ProcurarRemedio()
     res.header("Content-Type", "application/json");
+    console.log(categorias_filtro)
     res.send(JSON.stringify(resultados_busca, null, 5));
 })
 
@@ -133,7 +134,4 @@ app.get('/api/filtro', async function (req, res) {
 
 app.listen(port, () => {
     console.log('Running on '+port+'.');
-  });
-
-
-console.log(AdicionarCategoriaFiltro("Controlados"))
+});
