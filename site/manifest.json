@@ -1,0 +1,17 @@
+{
+    "short_name": "iBula",
+    "name": "iBula: Indexador de Remédios",
+    "icons": [
+      {
+        "src": "/icon.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "start_url": "/?source=pwa",
+    "background_color": "#58c7d1",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#58c7d1",
+    "description": "Aplicativo para pesquisar e ler bulas de remédios."
+  }
