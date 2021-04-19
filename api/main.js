@@ -33,12 +33,14 @@ function handleDisconnect() {
       }
   
       console.log('\nRe-connecting lost connection: ' +err.stack);
-      conn = mysql.createConnection(database.config);
+      database = mysql.createConnection(database.config);
   
       handleDisconnect(database);
       database.connect();
     });
   }
+
+  handleDisconnect(database);
 
 //Adicionar uma categoria ao filtro (recebe o nome da categoria e coloca o id da categoria na lista)
 function AdicionarCategoriaFiltro(categoria) {
