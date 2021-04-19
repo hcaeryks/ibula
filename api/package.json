@@ -4,6 +4,8 @@
   "description": "- Banco de dados de bula (mySQL)\r     - Busca de bula no banco de dados\r     - Dados das bulas no banco de dados\r     - Fazer sistema de busca dentro do banco de dados\r     - Mostrar o resultado da pesquisa\r     - Disponibilizar a bula para o usuário, para ler e para baixar na memória interna do celular\r     - Disponibilizar as informações mais importantes da bula\r     - Fazer o sistema de alarme para os remêdios do usuário",
   "main": "main.js",
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "mysql": "^2.18.1"
   },
   "devDependencies": {

@@ -5,6 +5,11 @@ Caso apareça algum erro relacionado ao throw err basta apagar a pasta node_modu
 //npm install --save-dev nodemon
 //npm install mysql
 const mysql = require('mysql');
+const express = require('express')
+const app = express()
+const cors = require('cors');
+const port = process.env.PORT || 8080;
+app.use(cors());
 //para acessar o banco de dados utilize a variavel "database"
 const database = mysql.createConnection({
     host: 'remotemysql.com',
@@ -16,6 +21,24 @@ database.connect((err) => {
     if(err) throw err;
     console.log("Conectado no Banco de Dados")
 });
+
+function handleDisconnect() {
+    database.on('error', function(err){
+      if(!err.fatal) {
+        return;
+      }
+  
+      if(err.code !== 'PROTOCOL_CONNECTION_LOST'){
+        throw err;
+      }
+  
+      console.log('\nRe-connecting lost connection: ' +err.stack);
+      conn = mysql.createConnection(database.config);
+  
+      handleDisconnect(database);
+      database.connect();
+    });
+  }
 
 //Adicionar uma categoria ao filtro (recebe o nome da categoria e coloca o id da categoria na lista)
 function AdicionarCategoriaFiltro(categoria) {
@@ -38,14 +61,13 @@ function RetornaListaNomes(lista) {
     for(let i = 0; i < lista.length; i++) {
         resultados_busca.push(lista[i].nome)
     }
-    return
 }
 
 var categorias_filtro = []
 var resultados_busca = []
 
 //Faz a busca dos remedios que contem as categorias do filtro e contem o filtro de busca por nome
-function ProcurarRemedio(busca="") {
+function ProcurarRemedio(busca = "") {
     busca_completa = ""
     for(let i = 0; i < categorias_filtro.length; i++) {
         if(i == 0) {
@@ -70,11 +92,48 @@ function ProcurarRemedio(busca="") {
             busca_completa += " WHERE nome LIKE '%" + busca + "%'"
         }
     }
-    console.log(busca_completa)
     database.query("SELECT nome FROM remedio" + busca_completa, (err, rows) => {
         if(err) throw err;
-        RetornaListaNomes(rows)
-        console.log(resultados_busca)
+        RetornaListaNomes(rows);
     })
 }
 
+function Download(id_remedio) {
+    database.query("SELECT linkbula FROM remedio WHERE id = '" + id_remedio + "'", (err, rows) => {
+        if(err) throw err;
+        link = rows[0].linkbula
+        console.log(link)
+        })    
+}
+
+app.get('/api/todos', function (req, res) {
+    ProcurarRemedio()
+    res.header("Content-Type", "application/json");
+    res.send(JSON.stringify(resultados_busca, null, 5));
+})
+
+app.get('/api/adicionar_categoria', function (req, res) {
+    let categoria = req.query.categoria;
+    AdicionarCategoriaFiltro(categoria)
+})
+
+app.get('/api/remover_categoria', function (req, res) {
+    let categoria = req.query.categoria;
+    RemoverCategoriaFiltro(categoria)
+    console.log(categorias_filtro)
+})
+
+app.get('/api/filtro', async function (req, res) {
+    let procura = req.query.filtro;
+    console.log(procura);
+    ProcurarRemedio(procura);
+    res.header("Content-Type", "application/json");
+    res.send(JSON.stringify(resultados_busca, null, 5));
+})
+
+app.listen(port, () => {
+    console.log('Running on '+port+'.');
+  });
+
+
+console.log(AdicionarCategoriaFiltro("Controlados"))
